@@ -863,21 +863,29 @@
     }
 
     /* ── Save to Google Sheets ── */
-var urlParams = new URLSearchParams(window.location.search);
-var payload = {
-    name:      document.getElementById('f-name').value.trim(),
-    phone:     '+91' + document.getElementById('f-phone').value.trim(),
-    concern:   document.getElementById('f-goal').value,
-    invest:    document.getElementById('f-invest').value,
-    verified:  true,
-    token:     token,
-    timestamp: new Date().toISOString(),
-    source:    urlParams.get('utm_source')   || 'direct',
-    medium:    urlParams.get('utm_medium')   || 'N/A',
-    campaign:  urlParams.get('utm_campaign') || 'N/A',
-    secret:    'NiwiForm2026'
-};
-
+/* ── Save to Google Sheets ── */
+function submitLead(token) {
+    var urlParams = new URLSearchParams(window.location.search);
+    var payload = {
+        name:      document.getElementById('f-name').value.trim(),
+        phone:     '+91' + document.getElementById('f-phone').value.trim(),
+        concern:   document.getElementById('f-goal').value,
+        invest:    document.getElementById('f-invest').value,
+        verified:  true,
+        token:     token,
+        timestamp: new Date().toISOString(),
+        source:    urlParams.get('utm_source')   || 'direct',
+        medium:    urlParams.get('utm_medium')   || 'N/A',
+        campaign:  urlParams.get('utm_campaign') || 'N/A',
+        secret:    'NiwiForm2026'
+    };
+    fetch(SHEETS_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    }).catch(function(e){ console.log('Sheets:', e); });
+    goStep(3);
+}
     /* ── Reviews ── */
     var reviews = [
         { name:"Danish Wali",    text:"I had an amazing experience with Insha from niwi.ai. She really listens and understands your lifestyle before creating a plan. Nothing felt extreme or restrictive. I have seen steady progress and feel much more confident about my eating habits now. Highly recommend!" },
