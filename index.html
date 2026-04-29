@@ -114,6 +114,24 @@ src="https://www.facebook.com/tr?id=674082483776593&ev=PageView&noscript=1"
         @keyframes shake {
             0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)} 60%{transform:translateX(5px)}
         }
+        /* ── NUTRITIONIST TABS ── */
+        .nutritionist-tab {
+            background: #fff;
+            color: #64748b;
+            border-color: #e2e8f0;
+        }
+        .nutritionist-tab:hover {
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        .nutritionist-tab.active-tab {
+            background: #166534;
+            color: #fff;
+            border-color: #166534;
+            box-shadow: 0 4px 14px rgba(22,101,52,0.25);
+        }
+        .nutritionist-panel { animation: fadeIn .25s ease; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
     </style>
 
     <!-- No Index -->
@@ -219,7 +237,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <option>Diabetes Management</option>
                             <option>Thyroid</option>
                             <option>Gut / Digestive Health</option>
-                            <option>Post-Pregnancy Weight</option>
+                            <option>Pregnancy & Post Pregnancy</option>
                             <option>Muscle Gain</option>
                             <option>Overall Wellness</option>
                             <option>Other</option>
@@ -306,6 +324,147 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 </div>
 
+<!-- ═══ NUTRITIONIST TYPES ═══ -->
+<section class="py-14 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-5xl mx-auto px-5">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2 text-center">Find the Right Nutritionist for You</h2>
+        <p class="text-slate-500 text-sm text-center mb-8">Different goals need different expertise. Here's how our dietitians are specialised.</p>
+
+        <!-- Tab Buttons -->
+        <div class="flex gap-2 justify-center mb-8 flex-wrap">
+            <button onclick="switchTab('personal')" id="tab-personal"
+                class="nutritionist-tab active-tab px-5 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200">
+                Personal Nutritionist
+            </button>
+            <button onclick="switchTab('functional')" id="tab-functional"
+                class="nutritionist-tab px-5 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200">
+                Functional Nutritionist
+            </button>
+            <button onclick="switchTab('holistic')" id="tab-holistic"
+                class="nutritionist-tab px-5 py-2.5 rounded-xl text-sm font-bold border transition-all duration-200">
+                Holistic Nutritionist
+            </button>
+        </div>
+
+        <!-- Tab: Personal Nutritionist -->
+        <div id="panel-personal" class="nutritionist-panel">
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full mb-4">One-on-One Guidance</span>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-3">Personal Nutritionist</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-5">A dedicated dietitian who knows your body, your kitchen, and your lifestyle. Plans built around you — not a generic template.</p>
+                    <ul class="space-y-2.5">
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-green-500 font-bold mt-0.5">✓</span>Customised meal plans based on your food preferences</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-green-500 font-bold mt-0.5">✓</span>Weekly video sessions to track progress and adapt plans</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-green-500 font-bold mt-0.5">✓</span>WhatsApp support for daily questions and accountability</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-green-500 font-bold mt-0.5">✓</span>Ideal for weight loss, weight gain, and general wellness</li>
+                    </ul>
+                    <a href="#lead-form" class="mt-6 inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors shadow-md shadow-green-600/20">
+                        Book Free Consultation
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-green-700">10K+</p>
+                        <p class="text-xs text-slate-500 mt-1">Clients Served</p>
+                    </div>
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-green-700">30+</p>
+                        <p class="text-xs text-slate-500 mt-1">Years of Expertise</p>
+                    </div>
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-green-700">4.9★</p>
+                        <p class="text-xs text-slate-500 mt-1">Google Rating</p>
+                    </div>
+                    <div class="bg-green-50 border border-green-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-green-700">100%</p>
+                        <p class="text-xs text-slate-500 mt-1">Personalised Plans</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Functional Nutritionist -->
+        <div id="panel-functional" class="nutritionist-panel hidden">
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-4">Root Cause Nutrition</span>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-3">Functional Nutritionist</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-5">Goes beyond calories. Our functional dietitians look at hormones, gut health, lab markers, and metabolic patterns to address the root cause — not just the symptom.</p>
+                    <ul class="space-y-2.5">
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-blue-500 font-bold mt-0.5">✓</span>Specialised in PCOS, thyroid, diabetes and metabolic disorders</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-blue-500 font-bold mt-0.5">✓</span>Hormone and micronutrient analysis through diet</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-blue-500 font-bold mt-0.5">✓</span>Gut health, IBS, and digestive dysfunction support</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-blue-500 font-bold mt-0.5">✓</span>Works alongside your doctor for medical diet management</li>
+                    </ul>
+                    <a href="#lead-form" class="mt-6 inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors shadow-md shadow-blue-600/20">
+                        Book Free Consultation
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-blue-700">PCOS</p>
+                        <p class="text-xs text-slate-500 mt-1">Hormonal Specialists</p>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-blue-700">Thyroid</p>
+                        <p class="text-xs text-slate-500 mt-1">Dietary Support</p>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-blue-700">Gut</p>
+                        <p class="text-xs text-slate-500 mt-1">IBS & Digestive Care</p>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-blue-700">Labs</p>
+                        <p class="text-xs text-slate-500 mt-1">Marker-Based Plans</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Holistic Nutritionist -->
+        <div id="panel-holistic" class="nutritionist-panel hidden">
+            <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-8 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="inline-block bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full mb-4">Mind, Body & Food</span>
+                    <h3 class="text-xl font-extrabold text-slate-900 mb-3">Holistic Nutritionist</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-5">Nutrition that considers your whole life — stress, sleep, lifestyle, and emotional relationship with food. Sustainable change without restriction or guilt.</p>
+                    <ul class="space-y-2.5">
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-purple-500 font-bold mt-0.5">✓</span>Addresses emotional eating, stress eating, and food anxiety</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-purple-500 font-bold mt-0.5">✓</span>Sleep, energy, and lifestyle factors built into your plan</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-purple-500 font-bold mt-0.5">✓</span>Anti-inflammatory and mindful eating approaches</li>
+                        <li class="flex items-start gap-2.5 text-sm text-slate-700"><span class="text-purple-500 font-bold mt-0.5">✓</span>Long-term habit building, not short-term fixes</li>
+                    </ul>
+                    <a href="#lead-form" class="mt-6 inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors shadow-md shadow-purple-600/20">
+                        Book Free Consultation
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-purple-700">Mind</p>
+                        <p class="text-xs text-slate-500 mt-1">Emotional Eating Support</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-purple-700">Sleep</p>
+                        <p class="text-xs text-slate-500 mt-1">Rest & Recovery Plans</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-purple-700">Habits</p>
+                        <p class="text-xs text-slate-500 mt-1">Long-Term Behaviour</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 text-center">
+                        <p class="text-2xl font-extrabold text-purple-700">Zero</p>
+                        <p class="text-xs text-slate-500 mt-1">Restriction / Guilt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ═══ HEALTH CONDITIONS ═══ -->
 <section id="conditions" class="py-14 bg-white">
     <div class="max-w-5xl mx-auto px-5">
@@ -340,7 +499,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <div class="bg-rose-50 border border-rose-100 rounded-2xl p-4 flex items-start gap-3">
                 <span class="text-xl mt-0.5">👶</span>
-                <div><p class="font-bold text-sm text-slate-900">Post-Pregnancy</p><p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Safe recovery & weight management</p></div>
+                <div><p class="font-bold text-sm text-slate-900">Pregnancy & Post Pregnancy</p><p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Safe recovery & weight management</p></div>
             </div>
 
             <div class="bg-amber-50 border border-amber-100 rounded-2xl p-4 flex items-start gap-3">
@@ -963,6 +1122,18 @@ function submitLead(token) {
     function closeReview() {
         document.getElementById('rev-modal').classList.remove('open');
         document.body.style.overflow = '';
+    }
+
+    /* ── Nutritionist Tabs ── */
+    function switchTab(tab) {
+        var tabs = ['personal', 'functional', 'holistic'];
+        tabs.forEach(function(t) {
+            document.getElementById('panel-' + t).classList.add('hidden');
+            var btn = document.getElementById('tab-' + t);
+            btn.classList.remove('active-tab');
+        });
+        document.getElementById('panel-' + tab).classList.remove('hidden');
+        document.getElementById('tab-' + tab).classList.add('active-tab');
     }
 </script>
 
