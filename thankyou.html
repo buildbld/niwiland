@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You | Niwi</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <title>You're Booked | Niwi</title>
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -33,9 +33,6 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
 
-    <!-- No Index -->
-    <meta name="robots" content="noindex, nofollow">
-
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -46,128 +43,440 @@
     </script>
     <!-- End Microsoft Clarity -->
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { primary: '#16a34a', primaryDark: '#15803d' } } }
+        }
+    </script>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'DM Sans', system-ui, sans-serif;
-            background: #f8faf8;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
+        * { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+
+        @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes scaleIn  { 0%{transform:scale(0.5);opacity:0} 70%{transform:scale(1.06)} 100%{transform:scale(1);opacity:1} }
+        @keyframes ripple   { 0%{transform:scale(1);opacity:0.6} 100%{transform:scale(2.2);opacity:0} }
+        @keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+        @keyframes ticker   { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        @keyframes draw     { to { stroke-dashoffset: 0; } }
+        @keyframes shimmer  { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
+
+        .fade-up { opacity:0; animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) forwards; }
+        .d1{animation-delay:0.05s} .d2{animation-delay:0.18s} .d3{animation-delay:0.3s}
+        .d4{animation-delay:0.42s} .d5{animation-delay:0.55s} .d6{animation-delay:0.68s}
+
+        .ripple-ring {
+            position:absolute; inset:-8px; border-radius:50%;
+            border:2px solid rgba(22,163,74,0.3);
+            animation: ripple 2.2s ease-out infinite;
         }
-        .card {
-            background: #fff;
-            border-radius: 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-            padding: 3rem 2.5rem;
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
+        .ripple-ring-2 {
+            position:absolute; inset:-18px; border-radius:50%;
+            border:1.5px solid rgba(22,163,74,0.15);
+            animation: ripple 2.2s ease-out infinite 0.5s;
         }
-        .check {
-            width: 72px;
-            height: 72px;
-            background: #16a34a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            animation: pop 0.4s ease;
+        .check-path {
+            stroke-dasharray: 30;
+            stroke-dashoffset: 30;
+            animation: draw 0.5s ease forwards 0.3s;
         }
-        @keyframes pop {
-            0% { transform: scale(0); opacity: 0; }
-            70% { transform: scale(1.15); }
-            100% { transform: scale(1); opacity: 1; }
+        .success-circle {
+            animation: scaleIn 0.55s cubic-bezier(.22,.68,0,1.2) forwards;
         }
-        .check svg { width: 36px; height: 36px; stroke: #fff; stroke-width: 3; fill: none; }
-        .logo { height: 32px; margin: 0 auto 2rem; display: block; }
-        h1 {
-            font-family: 'DM Serif Display', Georgia, serif;
-            font-size: 2rem;
-            color: #0f172a;
-            margin-bottom: 0.75rem;
-            line-height: 1.2;
+        .float-icon {
+            animation: float 3s ease-in-out infinite;
         }
-        .name { color: #16a34a; }
-        p {
-            color: #64748b;
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
+
+        /* Ticker */
+        .ticker-track {
+            display:flex;
+            width:max-content;
+            animation: ticker 22s linear infinite;
         }
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 999px;
-            padding: 0.5rem 1.25rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #15803d;
-            margin-bottom: 2rem;
+
+        /* Shimmer for image placeholders */
+        .shimmer {
+            background: linear-gradient(90deg,#f1f5f9 25%,#e8edf2 50%,#f1f5f9 75%);
+            background-size: 400% 100%;
+            animation: shimmer 1.8s infinite;
         }
-        .divider {
-            border: none;
-            border-top: 1px solid #f1f5f9;
-            margin: 1.5rem 0;
+
+        /* Step connector line */
+        .steps-wrap {
+            position:relative;
         }
-        .footer-note {
-            font-size: 0.8rem;
-            color: #94a3b8;
+        .steps-wrap::before {
+            content:'';
+            position:absolute;
+            left:27px; top:28px; bottom:28px;
+            width:2px;
+            background:linear-gradient(to bottom, #16a34a 0%, #bbf7d0 60%, #e2e8f0 100%);
         }
-        a.home {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: #16a34a;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
+
+        /* Card lift hover */
+        .card-lift {
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        a.home:hover { text-decoration: underline; }
+        .card-lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(22,163,74,0.1);
+        }
     </style>
 </head>
-<body>
+<body class="bg-white text-slate-800 antialiased">
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHL7SDKN"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div class="card">
-    <img src="logo.png" alt="Niwi" class="logo" onerror="this.style.display='none'">
+<!-- ═══ HEADER ═══ -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+    <div class="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
+        <a href="#">
+            <img src="logo.png" alt="Niwi" class="h-9" onerror="this.onerror=null;this.src='';this.alt='niwi.'">
+        </a>
+        <div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-4 py-2">
+            <span class="text-sm">✅</span>
+            <span class="text-xs font-bold text-green-700">Consultation Booked</span>
+        </div>
+    </div>
+</header>
 
-    <div class="check">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+<main class="pt-16">
+
+<!-- ═══ HERO ═══ -->
+<section style="background:linear-gradient(150deg,#f0fdf4 0%,#ffffff 60%)" class="relative overflow-hidden py-16 px-5 text-center">
+    <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full opacity-20" style="background:radial-gradient(circle,#bbf7d0,transparent 70%)"></div>
+
+    <!-- Success icon -->
+    <div class="relative w-24 h-24 mx-auto mb-7 fade-up d1">
+        <div class="ripple-ring"></div>
+        <div class="ripple-ring-2"></div>
+        <div class="success-circle w-24 h-24 rounded-full bg-gradient-to-br from-green-100 to-green-200 border-2 border-green-300 flex items-center justify-center shadow-lg shadow-green-600/15">
+            <svg width="38" height="38" fill="none" stroke="#16a34a" stroke-width="2.8" viewBox="0 0 24 24">
+                <path class="check-path" d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
     </div>
 
-    <h1>Thank you, <span class="name" id="user-name">there</span>! 🌿</h1>
-    <p>Our team will call you within <strong>24 hours</strong> to schedule your free consultation with a senior dietitian.</p>
-
-    <div class="badge">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
-        Expect a call within 24 hours
+    <div class="fade-up d2">
+        <div class="inline-flex items-center gap-2 bg-green-100 text-green-700 px-3.5 py-1.5 rounded-full text-xs font-bold mb-5">⭐ 4.9★ on Google · 10,000+ Clients</div>
+        <h1 class="text-4xl md:text-[2.8rem] font-extrabold text-slate-900 leading-tight mb-4">
+            You're all set, <span id="first-name" class="text-green-600">there</span>. 🎉
+        </h1>
+        <p class="text-base text-slate-500 leading-relaxed max-w-md mx-auto">
+            Our senior dietitian will call you within <strong class="text-slate-800">24 hours</strong> to schedule your free nutrition consultation.
+        </p>
     </div>
 
-    <hr class="divider">
-    <p class="footer-note">Meanwhile, check your WhatsApp — we may reach out there too.</p>
-    <a class="home" href="index.html">← Back to home</a>
+    <!-- Quick pills -->
+    <div class="fade-up d3 flex justify-center gap-3 flex-wrap mt-7">
+        <span class="inline-flex items-center gap-2 bg-white border-2 border-green-200 rounded-full px-4 py-2 text-xs font-semibold text-green-700">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.06 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14v2.92z"/></svg>
+            Call within 24 hrs
+        </span>
+        <span class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-500">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            15-min Free Session
+        </span>
+        <span class="inline-flex items-center gap-2 bg-white border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-500">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            WhatsApp support
+        </span>
+    </div>
+</section>
+
+<!-- ═══ TICKER ═══ -->
+<div class="overflow-hidden bg-green-600 py-3 fade-up d3">
+    <div class="ticker-track">
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>📞 Our team calls you within 24 hours</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>🥗 Personalised meal plan, built for your kitchen</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>💬 WhatsApp dietitian support every day</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>🏆 10,000+ clients transformed</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>⭐ 4.9 Google rating</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>🌿 No crash diets. No starvation.</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>📞 Our team calls you within 24 hours</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>🥗 Personalised meal plan, built for your kitchen</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>💬 WhatsApp dietitian support every day</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>🏆 10,000+ clients transformed</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>⭐ 4.9 Google rating</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+        <div class="flex items-center gap-2 px-7 text-xs font-semibold text-white/90 whitespace-nowrap"><span>🌿 No crash diets. No starvation.</span><span class="w-1 h-1 rounded-full bg-white/30 ml-1"></span></div>
+    </div>
 </div>
 
+<!-- ═══ WHAT HAPPENS NEXT ═══ -->
+<section class="py-14 bg-white border-b border-slate-100">
+    <div class="max-w-xl mx-auto px-5">
+        <div class="fade-up d3 text-center mb-10">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">What happens next</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Your journey starts <em>now</em></h2>
+        </div>
+
+        <div class="steps-wrap space-y-0">
+
+            <!-- Step 01 — Active -->
+            <div class="flex gap-5 items-start py-5 fade-up d3">
+                <div class="w-14 h-14 rounded-2xl bg-green-600 shadow-lg shadow-green-600/25 flex items-center justify-center text-xl shrink-0 relative z-10 float-icon">📞</div>
+                <div class="flex-1 bg-green-50 border-2 border-green-200 rounded-2xl p-4 shadow-sm">
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-green-600 mb-1">Happening now · within 24 hours</p>
+                    <p class="font-bold text-slate-900 text-sm mb-1">Our team calls you</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">A senior Niwi dietitian reaches out to understand your health goals, current routine, and any medical conditions. Just a friendly intro — no pressure at all.</p>
+                </div>
+            </div>
+
+            <!-- Step 02 -->
+            <div class="flex gap-5 items-start py-5 fade-up d4">
+                <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-xl shrink-0 relative z-10">🗓️</div>
+                <div class="flex-1 bg-white border border-slate-200 rounded-2xl p-4">
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Step 2 · Free session</p>
+                    <p class="font-bold text-slate-900 text-sm mb-1">15-minute nutrition consultation</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">We map your health conditions, food preferences, and daily routine. You'll be matched with a senior dietitian who is the right fit for your specific goals.</p>
+                </div>
+            </div>
+
+            <!-- Step 03 -->
+            <div class="flex gap-5 items-start py-5 fade-up d5">
+                <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-xl shrink-0 relative z-10 opacity-80">🥗</div>
+                <div class="flex-1 bg-white border border-slate-200 rounded-2xl p-4 opacity-80">
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Step 3 · Within 48 hours of enrolment</p>
+                    <p class="font-bold text-slate-900 text-sm mb-1">Your custom diet plan begins</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">A kitchen-friendly plan designed around your body, schedule, and goals. WhatsApp dietitian access and video sessions start from day one.</p>
+                </div>
+            </div>
+
+            <!-- Step 04 -->
+            <div class="flex gap-5 items-start py-5 fade-up d6">
+                <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex items-center justify-center text-xl shrink-0 relative z-10 opacity-70">📈</div>
+                <div class="flex-1 bg-white border border-slate-200 rounded-2xl p-4 opacity-70">
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Step 4 · Ongoing</p>
+                    <p class="font-bold text-slate-900 text-sm mb-1">Regular check-ins &amp; plan adjustments</p>
+                    <p class="text-xs text-slate-500 leading-relaxed">Your dietitian tweaks the plan as your body and goals evolve — sustainable results, not a quick fix that fades.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section style="background:linear-gradient(135deg,#f0fdf4 0%,#ffffff 100%)" class="py-14 border-b border-slate-100">
+    <div class="max-w-xl mx-auto px-5">
+        <div class="fade-up d3 text-center mb-8">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">By the numbers</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Trusted by thousands across India</h2>
+        </div>
+        <div class="fade-up d4 grid grid-cols-3 gap-4">
+            <div class="bg-white border border-slate-100 rounded-2xl p-5 text-center shadow-sm">
+                <div class="text-3xl font-extrabold text-green-600 leading-none mb-2">10K+</div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">Clients</div>
+            </div>
+            <div class="bg-white border border-slate-100 rounded-2xl p-5 text-center shadow-sm">
+                <div class="text-3xl font-extrabold text-green-600 leading-none mb-2">4.9★</div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">Google</div>
+            </div>
+            <div class="bg-white border border-slate-100 rounded-2xl p-5 text-center shadow-sm">
+                <div class="text-3xl font-extrabold text-green-600 leading-none mb-2">30+</div>
+                <div class="text-[11px] text-slate-400 font-semibold uppercase tracking-wide">Yrs Expertise</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ TEAM ═══ -->
+<section id="team" class="py-14 bg-white border-b border-slate-100">
+    <div class="max-w-xl mx-auto px-5">
+
+        <div class="fade-up d3 text-center mb-8">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 mb-2">The people behind your plan</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2">You get a dedicated dietitian.</h2>
+            <p class="text-slate-500 text-sm">Not rotated between strangers — one person who knows your body.</p>
+        </div>
+
+        <!-- Renu Puri -->
+        <div class="bg-white border border-slate-100 rounded-r-2xl p-5 flex flex-col sm:flex-row items-start gap-5 mb-3 shadow-sm fade-up d3" style="border-left:3px solid #16a34a;border-radius:0 16px 16px 0;">
+            <div class="w-[72px] h-[72px] rounded-xl shrink-0 overflow-hidden shimmer bg-slate-200">
+                <img src="Team/renu.webp" alt="Ms. Renu Puri" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            </div>
+            <div>
+                <div class="flex flex-wrap gap-1.5 mb-3">
+                    <span class="text-[10px] font-bold bg-yellow-100 text-yellow-800 px-2.5 py-1 rounded-full whitespace-nowrap">Celebrity Dietitian</span>
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full border border-slate-200 whitespace-nowrap">30+ Years</span>
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full border border-slate-200 whitespace-nowrap">MSc. Food & Nutrition</span>
+                </div>
+                <p class="font-bold text-slate-900 mb-1">Ms. Renu Puri</p>
+                <p class="text-sm text-slate-500 leading-relaxed">Founding dietitian and face of Niwi. Trusted by high-profile clients and celebrities. Leads the premium programme with a team of senior dietitians.</p>
+            </div>
+        </div>
+
+        <!-- 3 Senior Dietitians -->
+        <div class="grid grid-cols-3 gap-3 fade-up d4">
+            <div class="border border-slate-100 rounded-2xl p-4 shadow-sm card-lift">
+                <div class="flex flex-col items-center text-center gap-2 mb-3">
+                    <div class="w-12 h-12 rounded-xl shrink-0 overflow-hidden shimmer bg-slate-100"><img src="Team/Ruchi.webp" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
+                    <div>
+                        <p class="font-bold text-sm text-slate-900 leading-tight">Ruchi Mahajan</p>
+                        <p class="text-[11px] text-green-700 font-bold mt-0.5">Senior Dietitian</p>
+                    </div>
+                </div>
+                <div class="border-t border-slate-100 pt-3 text-center">
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full border border-slate-200">20+ years</span>
+                </div>
+            </div>
+            <div class="border border-slate-100 rounded-2xl p-4 shadow-sm card-lift">
+                <div class="flex flex-col items-center text-center gap-2 mb-3">
+                    <div class="w-12 h-12 rounded-xl shrink-0 overflow-hidden shimmer bg-slate-100"><img src="Team/Divya.webp" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
+                    <div>
+                        <p class="font-bold text-sm text-slate-900 leading-tight">Divya Saigal</p>
+                        <p class="text-[11px] text-green-700 font-bold mt-0.5">Senior Dietitian</p>
+                    </div>
+                </div>
+                <div class="border-t border-slate-100 pt-3 text-center">
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full border border-slate-200">20+ years</span>
+                </div>
+            </div>
+            <div class="border border-slate-100 rounded-2xl p-4 shadow-sm card-lift">
+                <div class="flex flex-col items-center text-center gap-2 mb-3">
+                    <div class="w-12 h-12 rounded-xl shrink-0 overflow-hidden shimmer bg-slate-100"><img src="Team/Harvinder.webp" class="w-full h-full object-cover" onerror="this.style.display='none'"></div>
+                    <div>
+                        <p class="font-bold text-sm text-slate-900 leading-tight">Harvinder Chauhan</p>
+                        <p class="text-[11px] text-green-700 font-bold mt-0.5">Senior Dietitian</p>
+                    </div>
+                </div>
+                <div class="border-t border-slate-100 pt-3 text-center">
+                    <span class="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full border border-slate-200">20+ years</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══ REVIEWS ═══ -->
+<section class="py-14 bg-slate-50 border-b border-slate-100">
+    <div class="max-w-xl mx-auto px-5">
+        <div class="fade-up d3 mb-7">
+            <p class="text-[11px] font-bold uppercase tracking-widest text-slate-400 text-center mb-2">Client stories</p>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 text-center mb-1">Real results, real people</h2>
+            <p class="text-center text-sm text-slate-500">From 10 kg in 3 months to PCOS reversal — here's what our clients say.</p>
+        </div>
+
+        <div class="fade-up d4 grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            <div class="bg-white border border-slate-100 rounded-2xl p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 shimmer bg-slate-100">
+                        <img src="Greviews/sharada.png" alt="Sharada Panwar" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=&quot;w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-sm&quot;>SP</span>'">
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-900">Sharada Panwar</p>
+                        <p class="text-amber-400 text-xs">★★★★★</p>
+                    </div>
+                </div>
+                <p class="text-[13px] text-slate-600 leading-relaxed">Weight down 101 → 96 kg. Energy improved, sugar cravings gone. Swata Marik's kitchen-friendly plan suited my medical condition</p>
+                <p class="text-[11px] text-slate-400 mt-2 font-medium">Google Review · Verified</p>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 shimmer bg-slate-100">
+                        <img src="Greviews/arti.png" alt="Arti Pawarr" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=&quot;w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-sm&quot;>AP</span>'">
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-900">Arti Pawarr</p>
+                        <p class="text-amber-400 text-xs">★★★★★</p>
+                    </div>
+                </div>
+                <p class="text-[13px] text-slate-600 leading-relaxed">I have lost around 10 kgs in 3 months. Senior Dietician Divya Saigal helped me reach my weight goals in a healthy, sustainable way. Amazing service!</p>
+                <p class="text-[11px] text-slate-400 mt-2 font-medium">Google Review · Verified</p>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 shimmer bg-slate-100">
+                        <img src="Greviews/ashita.png" alt="Ashita Tiwari" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=&quot;w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-sm&quot;>AT</span>'">
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-900">Ashita Tiwari</p>
+                        <p class="text-amber-400 text-xs">★★★★★</p>
+                    </div>
+                </div>
+                <p class="text-[13px] text-slate-600 leading-relaxed">Achieved 3.7 kg loss in 20 days! Ruchi Mahajan made all the difference — smart choices, no starvation. Energy up by day 5. Highly recommend for real results without burnout.</p>
+                <p class="text-[11px] text-slate-400 mt-2 font-medium">Google Review · Verified</p>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl p-5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 shimmer bg-slate-100">
+                        <img src="Greviews/laiba.png" alt="Laiba Noor Nabi" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<span class=&quot;w-9 h-9 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-sm&quot;>LN</span>'">
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-900">Laiba Noor Nabi</p>
+                        <p class="text-amber-400 text-xs">★★★★★</p>
+                    </div>
+                </div>
+                <p class="text-[13px] text-slate-600 leading-relaxed">Joined Niwi for PCOS. My bloating reduced, periods became more regular, energy improved. Dt Arisha is very supportive. Real results with a gentle approach — this is the place to be.</p>
+                <p class="text-[11px] text-slate-400 mt-2 font-medium">Google Review · Verified</p>
+            </div>
+
+        </div>
+
+        <!-- Google badge -->
+        <div class="fade-up d5 mt-5 flex items-center justify-center gap-3 bg-white border border-slate-100 rounded-2xl py-4 px-5">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            <span class="text-sm font-bold text-slate-900">4.9 / 5</span>
+            <span class="text-lg tracking-wide">⭐⭐⭐⭐⭐</span>
+            <span class="text-xs text-slate-400">Google Reviews</span>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="bg-slate-50 border-t border-slate-100 py-10 px-5 text-center">
+    <div class="max-w-5xl mx-auto">
+        <a href="#" class="inline-block mb-5">
+            <img src="logo.png" alt="Niwi" class="h-8 mx-auto" onerror="this.onerror=null;this.src='';this.alt='niwi.'">
+        </a>
+        <div class="flex justify-center gap-5 text-sm text-slate-400 mb-4">
+            <a href="https://www.niwi.ai/diet/privacy-policy" target="_blank" class="hover:text-green-600 transition-colors font-medium">Privacy Policy</a>
+            <span>·</span>
+            <a href="https://www.niwi.ai/diet/terms-of-use" class="hover:text-green-600 transition-colors font-medium">Terms of Service</a>
+        </div>
+        <p class="text-xs text-slate-300">© 2026 Niwiai Private Limited. All rights reserved.</p>
+    </div>
+</footer>
+
+</main>
+
 <script>
-    // Read name from URL and display it
+    // ── Name from URL param ──
     var params = new URLSearchParams(window.location.search);
-    var name = params.get('name');
-    if (name) {
-        document.getElementById('user-name').textContent = name;
+    var fullName = params.get('name') || '';
+    var firstName = fullName.split(' ')[0];
+    if (firstName) {
+        document.getElementById('first-name').textContent = firstName;
     }
+
+    // ── GTM event ──
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'thankyou_pageview', lead_name: fullName });
+
+    // ── Scroll reveal ──
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(function(el) {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+    });
 </script>
 
 </body>
